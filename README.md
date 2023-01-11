@@ -176,19 +176,14 @@ SpringBbs
 	  unique key (articleNo, ip, yearMonthDayHour)
 	);
 	
-	insert into board values ('chat','Chat','자유 게시판');
+	insert into board values ('chat','Chat','자유게시판');
 	commit;
 
 ## Have to do
 ### 1.Modify the **UPLOAD_PATH** in WebContants.java
-(e.g. **/home/kim/Lab/**SpringBbs/download/data/ => **C:\www\**SpringBbs\download\data\)
+(e.g. **/home/kim/**upload/ => **C:\www\SpringBbs\**upload\)
 
-### 2.Install the Oracle JDBC driver(ojdbc6.jar) to your local repository with the following command:
- 
-> mvn install:install-file -Dfile=ojdbc6.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0.2.0 -Dpackaging=jar
-
-(You can download ojdbc6.jar from https://repo1.maven.org/maven2/com/oracle/database/jdbc/ojdbc6/11.2.0.4/)
-### 3.Modify the **fileName** in log4j.xml
+### 2.Modify the **fileName** in log4j.xml
 
 > &lt;File name="A1" fileName="**/home/kim/logs/A1.log**" append="false"&gt;
 
@@ -196,10 +191,6 @@ On Linux, the following additional work is required.
 #### 1 Change ownership to the directory where log files are to be created.
 
 > sudo chown tomcat.tomcat -R logs/
-
-#### 2 You may also need the following:
-
-> sudo chmod 644 A1.log
 
 ## How to run
 
