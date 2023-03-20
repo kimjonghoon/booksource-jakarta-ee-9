@@ -62,7 +62,12 @@ public class BbsController extends Paginator {
 
 	//list
 	@GetMapping("{boardCd}")
-	public String list(@CookieValue(value="numPerPage", defaultValue="10") String num, @PathVariable String boardCd, Integer page, String searchWord, Locale locale, Model model) {
+	public String list(@CookieValue(value="numPerPage", defaultValue="10") String num,
+			@PathVariable String boardCd,
+			Integer page,
+			String searchWord,
+			Locale locale,
+			Model model) {
 
 		if (page == null) {
 			page = 1;
@@ -86,7 +91,6 @@ public class BbsController extends Paginator {
 		map.put("start", startRecord.toString());
 		map.put("end", endRecord.toString());
 		//Oracle end
-
 /*		
 		//MySQL and MariaDB start
 		Integer offset = (page - 1) * numPerPage;
@@ -126,8 +130,14 @@ public class BbsController extends Paginator {
 
 	//Detailed View
 	@GetMapping("{boardCd}/{articleNo}")
-	public String view(@CookieValue(value="numPerPage", defaultValue="10") String num, @PathVariable String boardCd, @PathVariable Integer articleNo,
-			Integer page, String searchWord, Locale locale, HttpServletRequest req, Model model) {
+	public String view(@CookieValue(value="numPerPage", defaultValue="10") String num,
+			@PathVariable String boardCd,
+			@PathVariable Integer articleNo,
+			Integer page,
+			String searchWord,
+			Locale locale,
+			HttpServletRequest req,
+			Model model) {
 
 		if (page == null) {
 			page = 1;
@@ -240,7 +250,10 @@ public class BbsController extends Paginator {
 
 	//new article form
 	@GetMapping("{boardCd}/new")
-	public String writeForm(@PathVariable String boardCd, Locale locale, Model model) {
+	public String writeForm(@PathVariable String boardCd,
+			Locale locale,
+			Model model) {
+		
 		String lang = locale.getLanguage();
 		String boardName = this.getBoardName(boardCd, lang);
 		List<Board> boards = boardService.getBoards();
@@ -306,7 +319,10 @@ public class BbsController extends Paginator {
 
 	//edit form 
 	@GetMapping("{boardCd}/{articleNo}/edit")
-	public String modifyForm(@PathVariable String boardCd, @PathVariable Integer articleNo, Locale locale, Model model) {
+	public String modifyForm(@PathVariable String boardCd,
+			@PathVariable Integer articleNo,
+			Locale locale,
+			Model model) {
 
 		String lang = locale.getLanguage();
 		Article article = boardService.getArticle(articleNo);
@@ -391,9 +407,15 @@ public class BbsController extends Paginator {
 	}
 
 	@DeleteMapping("/{boardCd}/{articleNo}")
-	public String deleteArticle(@PathVariable String boardCd, @PathVariable Integer articleNo, Integer page, String searchWord) {
+	public String deleteArticle(@PathVariable String boardCd,
+			@PathVariable Integer articleNo,
+			Integer page,
+			String searchWord) throws Exception {
+		
 		Article article = boardService.getArticle(articleNo);
 		boardService.removeArticle(article);
+		
+		searchWord = URLEncoder.encode(searchWord, "UTF-8");
 
 		return "redirect:/bbs/"
 			+ boardCd
